@@ -34,10 +34,16 @@ jobs:
       with:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
         tags: |
-          type=ref,event=branch
-          type=ref,event=pr
-          type=sha,prefix={{branch}}-
+          # Latest tag for main branch
           type=raw,value=latest,enable={{is_default_branch}}
+          # Development tag for dev branch
+          type=raw,value=development,enable=${{ github.ref == 'refs/heads/dev' }}
+          # Alpha tags for other branches
+          type=raw,value=alpha,enable=${{ github.ref != 'refs/heads/main' && github.ref != 'refs/heads/dev' }}
+          # Commit SHA tag for all branches
+          type=raw,value={{sha}}
+          # PR tags
+          type=ref,event=pr
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v5
