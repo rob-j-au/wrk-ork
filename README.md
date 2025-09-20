@@ -2,14 +2,14 @@
 
 A worker service that acts as an orchestrator for other worker services.
 
-### Setup
+#### Setup
 
 ```bash
 ./setup-config.sh
 npm install
 ```
 
-### Start Worker
+#### Start Worker
 
 Example Cluster ID: 1
 
@@ -23,13 +23,13 @@ node worker.js --wtype wrk-ork-proc-aggr \
                --cluster $CLUSTER_ID
 ```
 
-### View Status
+#### View Status
 
 ```
 cat status/wrk-ork-proc-aggr-${CLUSTER_ID}.json
 ```
 
-### Docker
+#### Docker
 
 ```
 docker build -t work-ork .
